@@ -9,29 +9,29 @@ public class MatchDataProcessor implements ItemProcessor<MatchInput, Match> {
 
     @Override
     public Match process(MatchInput matchInput) {
-        var id = Long.parseLong(matchInput.id());
-        var city = matchInput.city();
-        var date = LocalDate.parse(matchInput.date());
-        var playerOfMatch = matchInput.player_of_match();
-        var venue = matchInput.venue();
-        var tossWinner = matchInput.toss_winner();
-        var tossDecision = matchInput.toss_decision();
+        var id = Long.parseLong(matchInput.getId());
+        var city = matchInput.getCity();
+        var date = LocalDate.parse(matchInput.getDate());
+        var playerOfMatch = matchInput.getPlayer_of_match();
+        var venue = matchInput.getVenue();
+        var tossWinner = matchInput.getToss_winner();
+        var tossDecision = matchInput.getToss_decision();
 
         String team1;
         String team2;
         if ("bat".equals(tossDecision)) {
             team1 = tossWinner;
-            team2 = tossWinner.equals(matchInput.team1()) ? matchInput.team2() : matchInput.team1();
+            team2 = tossWinner.equals(matchInput.getTeam1()) ? matchInput.getTeam2() : matchInput.getTeam1();
         } else {
-            team1 = tossWinner.equals(matchInput.team1()) ? matchInput.team1() : matchInput.team2();
+            team1 = tossWinner.equals(matchInput.getTeam1()) ? matchInput.getTeam1() : matchInput.getTeam2();
             team2 = tossWinner;
         }
 
-        var matchWinner = matchInput.winner();
-        var result = matchInput.result();
-        var resultMargin = matchInput.result_margin();
-        var umpire1 = matchInput.umpire1();
-        var umpire2 = matchInput.umpire2();
+        var matchWinner = matchInput.getWinner();
+        var result = matchInput.getResult();
+        var resultMargin = matchInput.getResult_margin();
+        var umpire1 = matchInput.getUmpire1();
+        var umpire2 = matchInput.getUmpire2();
 
         return new Match(id, city, date, playerOfMatch, venue, team1, team2, tossWinner, tossDecision, matchWinner,
                          result, resultMargin, umpire1, umpire2);
